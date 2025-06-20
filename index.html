@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<title>Animating content in Reveal.js using Emacs Org-mode</title>
+<meta name="author" content="Saul SL"/>
+<meta name="description" content=""/>
+<meta name="keywords" content=""/>
+<style type="text/css">
+.underline { text-decoration: underline; }
+</style>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.2.1/dist/reveal.css"/>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.2.1/dist/theme/night.css" id="theme"/>
+
+<link rel="stylesheet" href="./plugin_extra/customcontrols/style.css"/>
+
+<link rel="stylesheet" href="./plugin_extra/drawer/drawer.css"/>
+
+<link rel="stylesheet" href="./plugin_extra/pointer/pointer.css"/>
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"/>
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@300..700&display=swap"/>
+
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap"/>
+
+<link rel="stylesheet" href="./personal/css/custom_tailwind.css"/>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js@5.2.1/plugin/highlight/zenburn.css"/><meta name="description" content="Animated content in Reveal.js">
+</head>
+<body>
+<div class="reveal">
+<div class="slides">
+<section id="sec-title-slide"><h1 class="title">Animating content in Reveal.js using Emacs Org-mode</h1><p class="subtitle"></p>
+<h2 class="author">Saul SL</h2><h2 class="date">June 2025</h2>
+</section>
+
+<section>
+<section id="slide-2" class="section" data-autoslide="2000">
+<h2 id="2">Foreword</h2>
+</section>
+<section id="slide-2-1" class="h-slide bg-color iborder-2x title-md">
+<h4 id="2-1">Description</h4>
+<div class="flex flex-col justify-evenly bg-gray iborder-3x text-body-lg h-content" id="orgf5249ea">
+<p>
+The purpose of this presentation is to show the use of animations in  a <a href="https://revealjs.com/speaker-view/">Reveal.js</a> presentation written in Emacs org-mode and exported with <a href="https://github.com/yjwen/org-reveal">org-reveal</a>.
+</p>
+<div class="iborder-2x flex flex-col justify-evenly h-content-06 bg-color" id="org67d5a61">
+<ul class="leading-[2.5]">
+<li>Content
+<ul>
+<li><a href="#/slide-3-2">Fragmented content</a>: How to display elements one after the other.</li>
+<li><a href="#/slide-3-3">Lightbox effects</a>: Display images, videos, web pages in full screen.</li>
+<li><a href="#/slide-3-4">Custom CSS classes</a>: Use transformations to enhance the delivery of information</li>
+
+</ul></li>
+
+</ul>
+
+</div>
+
+<p class="mt-2 text-right pr-2">
+<i>Thank you</i>.
+</p>
+
+</div>
+</section>
+</section>
+<section>
+<section id="slide-3" class="section" data-autoslide="2000">
+<h2 id="3">Animated content</h2>
+</section>
+</section>
+<section>
+<section id="slide-3-2" class="subsection title-md" data-autoslide="2300">
+<h3 id="3-2">Fragmented content</h3>
+</section>
+<section id="slide-3-2-1" class="h-slide bg-color iborder-2x title-xs">
+<h4 id="3-2-1">Display list elements one-by-one</h4>
+<div class="grid-cols-2 gap-x-4 text-body grid" id="orgcf2a6d3">
+<div class="bg-gray iborder-3x h-content" id="org58fb6e7">
+<ul class="h-content flex-list grow justify-evenly">
+<li data-fragment-index="1" class="fragment fade-in">To use fragmented content one way is to use of the attribute keyword <code>#+ATTR_REVEAL:</code> above the content.</li>
+<li data-fragment-index="2" class="fragment appear">The elements of this list were written using the attribute:
+<code>#+ATTR_REVEAL: :frag (fade-in appear roll-in fade-in) :frag_idx (1 2 3 4)</code></li>
+<li data-fragment-index="3" class="fragment roll-in"><p>
+The code used is show below
+</p>
+<div class="org-src-container">
+
+<pre   ><code class="org" >#+ATTR_HTML: :class h-content flex-list grow justify-evenly  
+#+ATTR_REVEAL: :frag (fade-in appear roll-in fade-in) :frag_idx (1 2 3 4)
+- To use ...
+- The elements ...
+- The code ...
+- The animation ..    
+</code></pre>
+</div></li>
+<li data-fragment-index="4" class="fragment fade-in"><span class="colLink">The animation to-be-applied should be indicated for all the items along with the order of the animation</span>.</li>
+
+</ul>
+
+</div>
+
+<div class="bg-gray iborder-3x h-content" id="org3f6e457">
+<p class="fragment">
+<b>Notes</b>
+</p>
+<ul class="fragment h-content-085 flex-list justify-evenly">
+<li>If the attribute <code>#+ATTR_REVEAL: :frag t</code> is used above the list the whole list will be displayed at once.</li>
+<li>Other styles include: 
+<ul>
+<li><code>grow</code></li>
+<li><code>shrink</code></li>
+<li><code>fade-out</code></li>
+<li><code>highlight-&lt;color&gt;</code></li>
+
+</ul></li>
+<li>It seems that these can not be combined with those used to '<i>show</i>' an item.
+<ul>
+<li><code>:frag (fade-in highlight-red) :frag_idx (1 1)</code> does not work as expected.</li>
+
+</ul></li>
+<li>Also the attributes  <code>#+ATTR_REVEAL: :frag t</code>  and <code>#+ATTR_HTML:</code> can not be combined. (<i>see next slide for an alternative.</i>)</li>
+
+</ul>
+
+</div>
+
+</div>
+</section>
+<section id="slide-3-2-2" class="h-slide bg-color iborder-2x title-xs">
+<h4 id="3-2-2">A more complex example</h4>
+<div class="grid-cols-2 gap-x-4 text-body grid" id="orgfc4499b">
+<div class="bg-gray iborder-3x h-content" id="org3cc9282">
+<ul class="h-content-09 flex-list grow justify-evenly">
+<li data-fragment-index="1" class="fragment fade-in">The items of this list are evenly spaced.</li>
+<li data-fragment-index="2" class="fragment fade-in">To also display them one at the time, the attribute <code>#+ATTR_REVEAL: :frag (style1 style2) :frag_idx (x y)</code> should be placed below the attribute <code>#+ATTR_HTML:</code> used to modify the list.</li>
+<li data-fragment-index="3" class="fragment fade-in"><p>
+The code used is shown below:
+</p>
+<div class="org-src-container">
+
+<pre   ><code class="org" >#+ATTR_HTML: :class h-content-09 flex-list grow justify-evenly fragment 
+#+ATTR_REVEAL: :frag (fade-in fade-in fade-in) :frag_idx (1 2 3)
+- The items ...
+- If we ...
+- The code ...
+- For elements ...  
+</code></pre>
+</div></li>
+<li data-fragment-index="4" class="fragment fade-in"><span class="ColLink">For elements that include a caption (tables and figures) the above won't work.</span></li>
+
+</ul>
+
+</div>
+
+<div class="bg-gray iborder-3x h-content" id="orgb3ad19c">
+<ul class="h-content-065 flex-list grow justify-evenly">
+<li data-fragment-index="5" class="fragment fade-in">Images and tables should be wrapped in a <code>fragment</code> block (exported as a class).</li>
+<li data-fragment-index="6" class="fragment fade-in">Additionally,  an <code>HTML</code> attribute should be used specifying the style and the index</li>
+<li data-fragment-index="7" class="fragment fade-in"><p>
+The code for the figure at the bottom is shown below:
+</p>
+<div class="org-src-container">
+
+<pre   ><code class="org" >#+ATTR_HTML: :class fade-in text-body-xs
+#+ATTR_HTML: :data-fragment-index 8
+#+begin_fragment
+#+ATTR_HTML: :class h-content-02
+#+caption: Landscape 1
+[[file:personal/images/landscape-1.jpg]]
+#+end_fragment
+</code></pre>
+</div></li>
+
+</ul>
+
+<div class="fade-in text-body-xs fragment" data-fragment-index="8" id="org166ffb7">
+
+<div id="org41a126c" class="figure">
+<p><img src="personal/images/landscape-1.jpg" alt="landscape-1.jpg" class="h-content-02" />
+</p>
+<p><span class="figure-number">Figure 1: </span>Landscape 1</p>
+</div>
+
+</div>
+
+</div>
+
+</div>
+</section>
+</section>
+<section>
+<section id="slide-3-3" class="subsection title-md" data-autoslide="2300">
+<h3 id="3-3">Lightbox effects</h3>
+</section>
+<section id="slide-3-3-1" class="h-slide bg-color iborder-2x title-xs">
+<h4 id="3-3-1">Use images with different levels of background opacity</h4>
+<div class="flex justify-evenly flex-wrap gap-4 text-body-sm flex-row" id="orgb2986e0">
+<div class="grow max-w-slide-07 h-content-110 iborder-3x text-body-xs bg-gray" id="org9203b2d">
+
+<div id="orga18ae3a" class="figure">
+<p><img src="personal/images/Xmind_missed_deadline_b.png" alt="Xmind_missed_deadline_b.png" class="h-content" data-preview-image="personal/images/Xmind_missed_deadline_a.png" data-preview-fit="scale-down" />
+</p>
+<p><span class="figure-number">Figure 2: </span>Mind map template from Xmind (Missing deadline)</p>
+</div>
+
+</div>
+
+<div class="grow max-w-slide-025 h-content-110 iborder-3x bg-gray" id="org8e42d12">
+<ul class="h-content flex-list grow justify-evenly">
+<li>A lightbox is a modal that displays an image or video in full-screen (see Reveal.js <a href="https://revealjs.com/lightbox/">documentation</a>)</li>
+<li>Two versions of the image on the left are show. These differ in the level of transparency of their background.</li>
+<li>The image shown by default has a more transparent background to blend better with the theme (whichever is selected)</li>
+<li>The image shown in full-screen has a background that is more solid (closer to white) so that the text can be read.</li>
+
+</ul>
+
+</div>
+
+</div>
+</section>
+<section id="slide-3-3-2" class="h-slide bg-color iborder-2x title-xs">
+<h4 id="3-3-2">Use images with a subset of the data</h4>
+<div class="flex justify-evenly flex-wrap gap-4 text-body flex-row" id="orgff9fbdf">
+<div class="grow max-w-slide-05 h-content-110 iborder-3x text-body-xs bg-gray" id="org9b871e4">
+
+<div id="org90cd666" class="figure">
+<p><img src="personal/images/Plot_subset.png" alt="Plot_subset.png" data-preview-image="personal/images/Plot_full.png" data-preview-fit="scale-down" class="h-content-085" />
+</p>
+<p><span class="figure-number">Figure 3: </span>Estimated microplastic consumption in Milk (μg/kg) for selected countries in America. Data was collected every 5 years between 1990-2018 (Source: <a href="https://www.kaggle.com/datasets/jayeshrmohanani/dataset-for-microplastic-consumption-in-food-items">Kaggle</a>)</p>
+</div>
+
+</div>
+
+<div class="grow max-w-slide-045 h-content-110 iborder-3x bg-gray" id="orgcc21701">
+<ul class="h-content flex-list grow justify-evenly">
+<li>The plot on the left shows a subset of the data. Click on it to show a plot with the complete data.</li>
+<li><p>
+The code used to insert the image on the left is shown below
+</p>
+<div class="org-src-container">
+
+<pre   ><code class="org" >#+ATTR_HTML: :data-preview-image personal/images/Plot_full.png :data-preview-fit scale-down
+#+ATTR_HTML: :class h-content-085
+#+caption: Estimated ...
+[[file:personal/images/Plot_subset.png]]
+</code></pre>
+</div></li>
+<li>Values for the <code>data-preview-fit</code> argument include:
+<ul class="leading-relaxed">
+<li><code>scale-down</code>: Fit the lightbox</li>
+<li><code>contain</code>: Scale without cropping</li>
+<li><code>cover</code>: Cover even if cropping</li>
+
+</ul></li>
+
+</ul>
+
+</div>
+
+</div>
+</section>
+</section>
+<section>
+<section id="slide-3-4" class="subsection title-md" data-autoslide="2300">
+<h3 id="3-4">Custom CSS classes</h3>
+</section>
+<section id="slide-3-4-1" class="h-slide bg-color iborder-2x title-md">
+<h4 id="3-4-1">Scale content</h4>
+<div class="flex flex-row justify-evenly flex-wrap gap-4 text-body mt-7 h-content" id="orgb22cadf">
+<div class="grow max-w-slide-045 iborder-3x flex flex-col justify-evenly scale-on-hover bg-color" id="orga017abd">
+<ul class="flex-list grow justify-evenly">
+<li>Custom CSS classes can be used to create animation effects that improve the delivery of the information</li>
+<li>For this slide a custom class <code>scale-on-hover</code> was written which <span class="ulColLink">increases the size of the box when the mouse hovers over</span>.</li>
+<li>The distance between the title and the row (content) was increased using the utility <code>mt-7</code>. The value was set by trial-and-error</li>
+
+</ul>
+
+</div>
+
+<div class="grow max-w-slide-045 iborder-3x flex flex-col justify-evenly scale-on-hover bg-gray" id="org7d1f80b">
+<ul>
+<li>The CSS code to allow this effect is shown below</li>
+
+</ul>
+
+<div class="org-src-container">
+
+<pre   ><code class="css" >.scale-on-hover {
+  transition: transform 0.3s ease;
+}
+
+.scale-on-hover:hover {
+    transform: scale(1.1);
+}
+</code></pre>
+</div>
+
+<ul>
+<li>The scale value was also set by trial and error</li>
+
+</ul>
+
+</div>
+
+</div>
+</section>
+<section id="slide-3-4-2" class="h-slide bg-color iborder-2x title-xs">
+<h4 id="3-4-2">Fade content</h4>
+<div class="grid-cols-2 gap-x-4 text-body mx-2 grid" id="org4228213">
+<div class="bg-gray iborder-3x flex flex-col grow justify-evenly px-2 h-content" id="org6109465">
+<div class="qfade fragment" data-fragment-index="2" id="org9024325">
+<ul class="flex-list grow justify-evenly h-content">
+<li>The custom class <code>qfade</code> would change the opacity of the content where it is applied.</li>
+<li>The above is largely derived from an example in the Reveal.js <a href="https://revealjs.com/fragments/#custom-fragments-4.5.0">documentation</a></li>
+<li><i>The approach I used was to present some content whose purpose was to introduce other, more relevant material.</i></li>
+<li><i>Another use could be to contrast two concepts, with one being favored over the other.</i></li>
+<li><i>Since the code on the right is more important than these opinions, this box could be blurred after described.</i></li>
+
+</ul>
+
+</div>
+
+</div>
+
+<div class="bg-color iborder-3x flex flex-col grow justify-evenly px-2 content-start h-content" id="orgd702a95">
+<ul>
+<li data-fragment-index="2" class="fragment fade-in"><p>
+The CSS code for the custom class <code>qfade</code> is shown below:
+</p>
+<div class="org-src-container">
+
+<pre   ><code class="css" >.reveal .fragment.qfade {
+    opacity: 1;
+    visibility: inherit;
+}
+
+.reveal .fragment.qfade.visible {
+    opacity: 0.3;
+    visibility: inherit;
+}
+</code></pre>
+</div></li>
+<li data-fragment-index="3" class="fragment fade-in"><p>
+It is implemented as follows:
+</p>
+<div class="org-src-container">
+
+<pre   ><code class="emacs-lisp" >#+ATTR_HTML: :class qfade
+#+ATTR_HTML: :data-fragment-index 2
+#+begin_fragment
+- The custom class ..
+- The above ...
+#+end_fragment
+</code></pre>
+</div></li>
+
+</ul>
+
+</div>
+
+</div>
+</section>
+</section>
+<section>
+<section id="slide-4" data-background-video="./personal/video/vecteezy_fireflies-hundred-particle-deep-flying.mp4" data-background-video-loop data-background-video-muted>
+<h2 id="4">Thank you</h2>
+</section>
+<section id="slide-4-1" class="h-slide bg-color iborder-2x title-xs">
+<h4 id="4-1">Multimedia credits</h4>
+<div class="flex flex-col justify-evenly bg-gray iborder-3x text-body-lg h-content" id="org91e11e9">
+<ul class="leading-[2.5]">
+<li>Landscape 1 (<a href="https://www.pexels.com/es-es/foto/globos-de-aire-caliente-en-el-cielo-2325446/">Link</a>)
+<ul>
+<li>Artist: <a href="https://www.pexels.com/es-es/@francesco-ungaro/">Francesco Ungaro</a></li>
+<li>License: <a href="https://www.pexels.com/es-es/license/">Pexels</a></li>
+
+</ul></li>
+<li>Video background (<a href="https://www.vecteezy.com/video/28675920-fireflies-hundred-particle-deep-flying-abstract-element-on-the-air-on-the-black-screen">Link</a>)
+<ul>
+<li>Artist: <a href="https://www.vecteezy.com/members/darkfoxelixir">Chayanan Phumsukwisit</a></li>
+<li>Attribution: <a href="https://www.vecteezy.com/free-videos/abstract">Abstract Stock Videos by Vecteezy</a></li>
+
+</ul></li>
+
+</ul>
+
+</div>
+</section>
+</section>
+</div>
+</div>
+<p>Created by Saul SL</p>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.2.1/dist/reveal.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.2.1/plugin/notes/notes.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js@5.2.1/plugin/highlight/highlight.js"></script>
+
+<script src="./plugin_extra/menu/menu.js"></script>
+<script src="./plugin_extra/customcontrols/plugin.js"></script>
+<script src="./plugin_extra/drawer/drawer.js"></script>
+<script src="./plugin_extra/pointer/pointer.js"></script>
+
+<script>
+// Full list of configuration options available here:
+// https://github.com/hakimel/reveal.js#configuration
+Reveal.initialize({
+plugins: [RevealNotes, RevealHighlight, RevealMenu, RevealCustomControls, RevealPointer, RevealDrawer],
+width:1200, height:800, margin: 0.1, minScale:0.2, maxScale:2.5, transition: 'convex', progress:true, history:true, center:true, mouseWheel:false, overview: true, menu:{themes:true, themesPath:'/home/saul/Shared/Cloned/Web_devel/reveal.js/dist/theme/', transitions:true, markers:true, custom: false, hideMissingTitles:true}, customcontrols:{controls:[{id:'toggle-overview', title:'Toggleoverview(O)', icon:'<i class="fa fa-th"></i>', action:'Reveal.toggleOverview();'}]}, pointer: {key: "q", color: "red", pointerSize: 16, alwaysVisible: false, tailLength: 10}
+});
+
+</script>
+<script src="./personal/js/icustom.js"></script>
+</body>
+</html>

@@ -1,0 +1,341 @@
+#+Title: Animating content in Reveal.js using Emacs Org-mode
+#+Author: Saul SL
+#+Date:  June 2025
+
+#+OPTIONS: timestamp:nil ^:{} num:nil toc:nil
+:macros:
+#+MACRO: textf @@html:<span class="$1">$2</span>@@
+#+MACRO: textcol @@html:<span style="color: $1;">$2</span>@@
+# #+MACRO: link-img @@html:<a data-preview-image="$1">$2</a>@@
+#+MACRO: link-img @@html:<a data-preview-image="$1"><i class="fa fa-image fa-lg"></i></a>@@
+#+MACRO: link-ico @@html:<a data-preview-image="$1"><i class="fa fa-chart-simple fa-lg"></i></a>@@
+:END:
+
+:Configuration:
+#+REVEAL_ROOT: https://cdn.jsdelivr.net/npm/reveal.js@5.2.1
+#+REVEAL_INIT_OPTIONS: width:1200, height:800, margin: 0.1, minScale:0.2, maxScale:2.5, transition: 'convex', progress:true, history:true, center:true, mouseWheel:false, overview: true, menu:{themes:true, themesPath:'/home/saul/Shared/Cloned/Web_devel/reveal.js/dist/theme/', transitions:true, markers:true, custom: false, hideMissingTitles:true}, customcontrols:{controls:[{id:'toggle-overview', title:'Toggleoverview(O)', icon:'<i class="fa fa-th"></i>', action:'Reveal.toggleOverview();'}]}, pointer: {key: "q", color: "red", pointerSize: 16, alwaysVisible: false, tailLength: 10}
+
+#+REVEAL_HLEVEL: 2
+#+REVEAL_THEME: night
+
+#+REVEAL_HEAD_PREAMBLE: <meta name="description" content="Animated content in Reveal.js">
+#+REVEAL_POSTAMBLE: <p>Created by Saul SL</p>
+
+#+REVEAL_PLUGINS: (notes highlight RevealMenu RevealCustomControls RevealPointer RevealDrawer)
+
+#+REVEAL_EXTRA_CSS: ./plugin_extra/customcontrols/style.css
+#+REVEAL_EXTRA_CSS: ./plugin_extra/drawer/drawer.css
+#+REVEAL_EXTRA_CSS: ./plugin_extra/pointer/pointer.css
+#+REVEAL_EXTRA_CSS: https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css
+#+REVEAL_EXTRA_CSS: https://fonts.googleapis.com/css2?family=Fira+Code:wght@300..700&display=swap
+#+REVEAL_EXTRA_CSS: https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap
+#+REVEAL_EXTRA_CSS: ./personal/css/custom_tailwind.css
+
+#+REVEAL_EXTRA_SCRIPT_BEFORE_SRC: ./plugin_extra/menu/menu.js
+#+REVEAL_EXTRA_SCRIPT_BEFORE_SRC: ./plugin_extra/customcontrols/plugin.js
+#+REVEAL_EXTRA_SCRIPT_BEFORE_SRC: ./plugin_extra/drawer/drawer.js
+#+REVEAL_EXTRA_SCRIPT_BEFORE_SRC: ./plugin_extra/pointer/pointer.js
+
+#+REVEAL_EXTRA_SCRIPT_SRC: ./personal/js/icustom.js
+:END:
+* Foreword
+:PROPERTIES:
+:CUSTOM_ID: 2
+:REVEAL_EXTRA_ATTR: class="section" data-autoslide="2000"
+:END:
+*** Description
+:PROPERTIES:
+:REVEAL_EXTRA_ATTR: class="h-slide bg-color iborder-2x title-md"
+:CUSTOM_ID: 2-1
+:END:
+#+ATTR_HTML: :class flex flex-col justify-evenly bg-gray iborder-3x text-body-lg
+#+begin_h-content
+The purpose of this presentation is to show the use of animations in  a [[https://revealjs.com/speaker-view/][Reveal.js]] presentation written in Emacs org-mode and exported with [[https://github.com/yjwen/org-reveal][org-reveal]].
+#+ATTR_HTML: :class iborder-2x flex flex-col justify-evenly h-content-06
+#+begin_bg-color
+#+ATTR_HTML: :class leading-[2.5]
+- Content
+  - [[*Fragmented content][Fragmented content]]: How to display elements one after the other.
+  - [[*Lightbox effects][Lightbox effects]]: Display images, videos, web pages in full screen.
+  - [[*Custom CSS classes][Custom CSS classes]]: Use transformations to enhance the delivery of information
+#+end_bg-color
+
+#+ATTR_HTML: :class mt-2 text-right pr-2
+ /Thank you/.
+#+end_h-content
+* Animated content
+:PROPERTIES:
+:CUSTOM_ID: 3
+:REVEAL_EXTRA_ATTR: class="section" data-autoslide="2000"
+:END:
+** Fragmented content
+:PROPERTIES:
+:CUSTOM_ID: 3-2
+:REVEAL_EXTRA_ATTR: class="subsection title-md" data-autoslide="2300"
+:END:
+*** Display list elements one-by-one
+:PROPERTIES:
+:REVEAL_EXTRA_ATTR: class="h-slide bg-color iborder-2x title-xs"
+:CUSTOM_ID: 3-2-1
+:END:
+#+ATTR_HTML: :class grid-cols-2 gap-x-4 text-body
+#+begin_grid
+#+ATTR_HTML: :class bg-gray iborder-3x
+#+begin_h-content
+#+ATTR_HTML: :class h-content flex-list grow justify-evenly  
+#+ATTR_REVEAL: :frag (fade-in appear roll-in fade-in) :frag_idx (1 2 3 4)
+- To use fragmented content one way is to use of the attribute keyword =#+ATTR_REVEAL:= above the content.
+- The elements of this list were written using the attribute:
+   =#+ATTR_REVEAL: :frag (fade-in appear roll-in fade-in) :frag_idx (1 2 3 4)=
+- The code used is show below
+    #+begin_src org
+      ,#+ATTR_HTML: :class h-content flex-list grow justify-evenly  
+      ,#+ATTR_REVEAL: :frag (fade-in appear roll-in fade-in) :frag_idx (1 2 3 4)
+      - To use ...
+      - The elements ...
+      - The code ...
+      - The animation ..    
+    #+end_src
+- {{{textf(colLink,The animation to-be-applied should be indicated for all the items along with the order of the animation)}}}.
+#+end_h-content
+
+#+ATTR_HTML: :class bg-gray iborder-3x
+#+begin_h-content
+#+ATTR_REVEAL: :frag t
+*Notes*
+#+ATTR_HTML: :class fragment h-content-085 flex-list justify-evenly
+- If the attribute =#+ATTR_REVEAL: :frag t= is used above the list the whole list will be displayed at once.
+- Other styles include: 
+  - =grow=
+  - =shrink=
+  - =fade-out=
+  - =highlight-<color>=
+- It seems that these can not be combined with those used to '/show/' an item.
+  - =:frag (fade-in highlight-red) :frag_idx (1 1)= does not work as expected.
+- Also the attributes  =#+ATTR_REVEAL: :frag t=  and =#+ATTR_HTML:= can not be combined. (/see next slide for an alternative./)
+#+end_h-content
+#+end_grid
+
+*** A more complex example
+:PROPERTIES:
+:REVEAL_EXTRA_ATTR: class="h-slide bg-color iborder-2x title-xs"
+:CUSTOM_ID: 3-2-2
+:END:
+#+ATTR_HTML: :class grid-cols-2 gap-x-4 text-body
+#+begin_grid
+#+ATTR_HTML: :class bg-gray iborder-3x
+#+begin_h-content
+#+ATTR_HTML: :class h-content-09 flex-list grow justify-evenly 
+#+ATTR_REVEAL: :frag (fade-in fade-in fade-in fade-in) :frag_idx (1 2 3 4)
+- The items of this list are evenly spaced.
+- To also display them one at the time, the attribute =#+ATTR_REVEAL: :frag (style1 style2) :frag_idx (x y)= should be placed below the attribute =#+ATTR_HTML:= used to modify the list.
+- The code used is shown below:
+    #+begin_src org
+      ,#+ATTR_HTML: :class h-content-09 flex-list grow justify-evenly fragment 
+      ,#+ATTR_REVEAL: :frag (fade-in fade-in fade-in) :frag_idx (1 2 3)
+      - The items ...
+      - If we ...
+      - The code ...
+      - For elements ...  
+    #+end_src
+- {{{textf(ColLink,For elements that include a caption (tables and figures) the above won't work.)}}}
+#+end_h-content
+
+#+ATTR_HTML: :class bg-gray iborder-3x
+#+begin_h-content
+#+ATTR_HTML: :class h-content-065 flex-list grow justify-evenly 
+#+ATTR_REVEAL: :frag (fade-in fade-in fade-in) :frag_idx (5 6 7)
+- Images and tables should be wrapped in a =fragment= block (exported as a class).
+- Additionally,  an =HTML= attribute should be used specifying the style and the index
+- The code for the figure at the bottom is shown below:
+    #+begin_src org
+      ,#+ATTR_HTML: :class fade-in text-body-xs
+      ,#+ATTR_HTML: :data-fragment-index 8
+      ,#+begin_fragment
+      ,#+ATTR_HTML: :class h-content-02
+      ,#+caption: Landscape 1
+      [[file:personal/images/landscape-1.jpg]]
+      ,#+end_fragment
+  #+end_src
+
+#+ATTR_HTML: :class fade-in text-body-xs
+#+ATTR_HTML: :data-fragment-index 8 
+#+begin_fragment
+#+ATTR_HTML: :class h-content-02
+#+caption: Landscape 1
+[[file:personal/images/landscape-1.jpg]]
+#+end_fragment
+#+end_h-content
+#+end_grid
+
+** Lightbox effects
+:PROPERTIES:
+:CUSTOM_ID: 3-3
+:REVEAL_EXTRA_ATTR: class="subsection title-md" data-autoslide="2300"
+:END:
+*** Use images with different levels of background opacity 
+:PROPERTIES:
+:REVEAL_EXTRA_ATTR: class="h-slide bg-color iborder-2x title-xs"
+:CUSTOM_ID: 3-3-1
+:END:
+#+ATTR_HTML: :class flex justify-evenly flex-wrap gap-4 text-body-sm
+#+begin_flex-row
+#+ATTR_HTML: :class grow max-w-slide-07 h-content-110 iborder-3x text-body-xs
+#+begin_bg-gray
+#+ATTR_HTML: :class h-content :data-preview-image personal/images/Xmind_missed_deadline_a.png :data-preview-fit scale-down
+#+caption: Mind map template from Xmind (Missing deadline)
+[[file:personal/images/Xmind_missed_deadline_b.png]]
+#+end_bg-gray
+
+#+ATTR_HTML: :class grow max-w-slide-025 h-content-110 iborder-3x
+#+begin_bg-gray
+#+ATTR_HTML: :class h-content flex-list grow justify-evenly
+- A lightbox is a modal that displays an image or video in full-screen (see Reveal.js [[https://revealjs.com/lightbox/][documentation]])
+- Two versions of the image on the left are show. These differ in the level of transparency of their background.
+- The image shown by default has a more transparent background to blend better with the theme (whichever is selected)
+- The image shown in full-screen has a background that is more solid (closer to white) so that the text can be read.
+#+end_bg-gray
+#+end_flex-row
+
+*** Use images with a subset of the data
+:PROPERTIES:
+:REVEAL_EXTRA_ATTR: class="h-slide bg-color iborder-2x title-xs"
+:CUSTOM_ID: 3-3-2
+:END:
+#+ATTR_HTML: :class flex justify-evenly flex-wrap gap-4 text-body
+#+begin_flex-row
+#+ATTR_HTML: :class grow max-w-slide-05 h-content-110 iborder-3x text-body-xs
+#+begin_bg-gray
+#+ATTR_HTML: :data-preview-image personal/images/Plot_full.png :data-preview-fit scale-down
+#+ATTR_HTML: :class h-content-085
+#+caption: Estimated microplastic consumption in Milk (μg/kg) for selected countries in America. Data was collected every 5 years between 1990-2018 (Source: [[https://www.kaggle.com/datasets/jayeshrmohanani/dataset-for-microplastic-consumption-in-food-items][Kaggle]])
+[[file:personal/images/Plot_subset.png]]
+#+end_bg-gray
+
+#+ATTR_HTML: :class grow max-w-slide-045 h-content-110 iborder-3x
+#+begin_bg-gray
+#+ATTR_HTML: :class h-content flex-list grow justify-evenly
+- The plot on the left shows a subset of the data. Click on it to show a plot with the complete data.
+- The code used to insert the image on the left is shown below
+    #+begin_src org
+      ,#+ATTR_HTML: :data-preview-image personal/images/Plot_full.png :data-preview-fit scale-down
+      ,#+ATTR_HTML: :class h-content-085
+      ,#+caption: Estimated ...
+      [[file:personal/images/Plot_subset.png]]
+    #+end_src
+- Values for the =data-preview-fit= argument include:
+  #+ATTR_HTML: :class leading-relaxed
+  - =scale-down=: Fit the lightbox
+  - =contain=: Scale without cropping
+  - =cover=: Cover even if cropping
+#+end_bg-gray
+#+end_flex-row
+
+
+** Custom CSS classes
+:PROPERTIES:
+:CUSTOM_ID: 3-4
+:REVEAL_EXTRA_ATTR: class="subsection title-md" data-autoslide="2300"
+:END:
+*** Scale content
+:PROPERTIES:
+:REVEAL_EXTRA_ATTR: class="h-slide bg-color iborder-2x title-md"
+:CUSTOM_ID: 3-4-1
+:END:
+#+ATTR_HTML: :class flex flex-row justify-evenly flex-wrap gap-4 text-body mt-7
+#+begin_h-content
+#+ATTR_HTML: :class grow max-w-slide-045 iborder-3x flex flex-col justify-evenly scale-on-hover
+#+begin_bg-color
+#+ATTR_HTML: :class flex-list grow justify-evenly
+- Custom CSS classes can be used to create animation effects that improve the delivery of the information
+- For this slide a custom class =scale-on-hover= was written which {{{textf(ulColLink,increases the size of the box when the mouse hovers over)}}}.
+- The distance between the title and the row (content) was increased using the utility =mt-7=. The value was set by trial-and-error
+
+#+end_bg-color
+
+#+ATTR_HTML: :class grow max-w-slide-045 iborder-3x flex flex-col justify-evenly scale-on-hover
+#+begin_bg-gray
+- The CSS code to allow this effect is shown below
+  
+#+begin_src css
+  .scale-on-hover {
+    transition: transform 0.3s ease;
+  }
+
+  .scale-on-hover:hover {
+      transform: scale(1.1);
+  }
+#+end_src
+
+- The scale value was also set by trial and error
+#+end_bg-gray
+#+end_h-content
+
+*** Fade content
+:PROPERTIES:
+:REVEAL_EXTRA_ATTR: class="h-slide bg-color iborder-2x title-xs"
+:CUSTOM_ID: 3-4-2
+:END:
+#+ATTR_HTML: :class grid-cols-2 gap-x-4 text-body mx-2
+#+begin_grid
+#+ATTR_HTML: :class bg-gray iborder-3x flex flex-col grow justify-evenly px-2
+#+begin_h-content
+#+ATTR_HTML: :class qfade
+#+ATTR_HTML: :data-fragment-index 2
+#+begin_fragment
+#+ATTR_HTML: :class flex-list grow justify-evenly h-content
+- The custom class =qfade= would change the opacity of the content where it is applied.
+- The above is largely derived from an example in the Reveal.js [[https://revealjs.com/fragments/#custom-fragments-4.5.0][documentation]]
+- /The approach I used was to present some content whose purpose was to introduce other, more relevant material./
+- /Another use could be to contrast two concepts, with one being favored over the other./
+- /Since the code on the right is more important than these opinions, this box could be blurred after described./
+#+end_fragment
+#+end_h-content
+
+#+ATTR_HTML: :class bg-color iborder-3x flex flex-col grow justify-evenly px-2 content-start
+#+begin_h-content
+#+ATTR_REVEAL: :frag (fade-in fade-in) :frag_idx (2 3)
+- The CSS code for the custom class =qfade= is shown below:
+  #+begin_src css
+  .reveal .fragment.qfade {
+      opacity: 1;
+      visibility: inherit;
+  }
+
+  .reveal .fragment.qfade.visible {
+      opacity: 0.3;
+      visibility: inherit;
+  }
+#+end_src
+- It is implemented as follows:
+  #+begin_src emacs-lisp
+    ,#+ATTR_HTML: :class qfade
+    ,#+ATTR_HTML: :data-fragment-index 2
+    ,#+begin_fragment
+    - The custom class ..
+    - The above ...
+    ,#+end_fragment
+  #+end_src
+
+#+end_h-content
+#+end_grid
+* Thank you
+:PROPERTIES:
+:CUSTOM_ID: 4
+:REVEAL_EXTRA_ATTR: data-background-video="./personal/video/vecteezy_fireflies-hundred-particle-deep-flying.mp4" data-background-video-loop data-background-video-muted
+:END:
+*** Multimedia credits
+:PROPERTIES:
+:REVEAL_EXTRA_ATTR: class="h-slide bg-color iborder-2x title-xs"
+:CUSTOM_ID: 4-1
+:END:
+#+ATTR_HTML: :class flex flex-col justify-evenly bg-gray iborder-3x text-body-lg
+#+begin_h-content
+#+ATTR_HTML: :class leading-[2.5]
+- Landscape 1 ([[https://www.pexels.com/es-es/foto/globos-de-aire-caliente-en-el-cielo-2325446/][Link]])
+  - Artist: [[https://www.pexels.com/es-es/@francesco-ungaro/][Francesco Ungaro]]
+  - License: [[https://www.pexels.com/es-es/license/][Pexels]]
+- Video background ([[https://www.vecteezy.com/video/28675920-fireflies-hundred-particle-deep-flying-abstract-element-on-the-air-on-the-black-screen][Link]])
+  - Artist: [[https://www.vecteezy.com/members/darkfoxelixir][Chayanan Phumsukwisit]]
+  - Attribution: [[https://www.vecteezy.com/free-videos/abstract][Abstract Stock Videos by Vecteezy]]
+#+end_h-content
